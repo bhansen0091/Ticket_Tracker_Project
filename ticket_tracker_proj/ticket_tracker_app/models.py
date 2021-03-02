@@ -14,7 +14,7 @@ class Subtask(models.Model):
     sub_contributors = models.ManyToManyField(User, related_name="sub_tasks")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    # need to add validations form forms view
 
 class Task(models.Model):
     name = models.CharField(max_length=510)
@@ -26,6 +26,7 @@ class Task(models.Model):
     subtasks = models.ForeignKey(Subtask, null=True, on_delete=CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # need to add validations form forms view
 
 
 
