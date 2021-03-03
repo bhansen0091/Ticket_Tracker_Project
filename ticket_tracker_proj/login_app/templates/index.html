@@ -49,47 +49,37 @@
                 <div class="row justify-content-around">
                     <div class="col-5 border border-secondary longer-rounded-corners">
                         <div class="container text-start">
-                            <div class="container text-center mt-2">
-                                <h3>Register</h3>
+                            <div class="form-group">
+                                <div class="container text-center mt-2">
+                                    <h3>Register</h3>
+                                </div>
+                                <form action="/users/register" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row mb-3">
+                                            {{ reg_form.first_name }}
+                                    </div>
+                                    <div class="row mb-3">
+                                            {{ reg_form.last_name }}
+                                    </div>
+                                    <div class="row mb-3">
+                                            {{ reg_form.email_address }}
+                                    </div>
+                                    <div class="row mb-3">
+                                            {{ reg_form.birthday }}
+                                    </div>
+                                    <div class="row mb-3">
+                                            {{ reg_form.password }}
+                                    </div>
+                                    <div class="row mb-3">
+                                        <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password" >
+                                    </div>
+                                    <div class="row justify-content-center mb-3">
+                                        <div class="col text-center">
+                                            <button type="submit" class="btn btn-sm btn-secondary">Register</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <form action="/users/register" method="POST">
-                                {% csrf_token %}
-                                <div class="row mb-2">
-                                    <div class="col form-group">
-                                        <input type="text" name="first_name" placeholder="First Name" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="row mb-2">
-                                    <div class="form-group">
-                                        <input type="text" name="last_name" placeholder="Last Name" class="form-control" />
-                                    </div>
-                                </div>                            
-                                <div class="row mb-2">
-                                    <div class="form-group">
-                                        <input type="date" name="birthday" placeholder="Birthday" class="form-control" />
-                                    </div>
-                                </div>                            
-                                <div class="row mb-2">
-                                    <div class="form-group">
-                                        <input type="email" name="email_address" placeholder="Email Address" class="form-control" />
-                                    </div>
-                                </div>                            
-                                <div class="row mb-2">
-                                    <div class="form-group">
-                                        <input type="password" name="password" placeholder="Password" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="form-group">
-                                        <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" />
-                                    </div>
-                                </div>
-                                <div class="row mb-3 justify-content-center">
-                                    <div class="col text-center">
-                                        <button type="submit" class="btn btn-sm btn-secondary">Register</button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="col-5 border border-secondary d-flex align-items-center longer-rounded-corners">
@@ -100,10 +90,10 @@
                                 <form action="/users/login" class="input_forms" method="POST">
                                     {% csrf_token %}
                                     <div class="row mb-2">
-                                        <input type="email" name="email_address" placeholder="Email Address" class="form-control" />
+                                        {{ login_form.email_address }}
                                     </div>
                                     <div class="row mb-2">
-                                        <input type="password" name="password" placeholder="Password" class="form-control password_input" />
+                                        {{login_form.password}}
                                     </div>
                                     <div class="row justify-content-center">
                                         <div class="col text-center">

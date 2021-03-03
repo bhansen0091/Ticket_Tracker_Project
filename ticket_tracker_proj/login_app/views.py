@@ -1,10 +1,15 @@
+from login_app.forms import LoginForm, RegistrationForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User
+from login_app.models import User
 import bcrypt
 
 def index(request):
-    return render(request, "index.html")
+    context = {
+        "reg_form": RegistrationForm(),
+        "login_form": LoginForm(),
+    }
+    return render(request, "index.html", context)
 
 # --------------- User Registration ---------------
 
@@ -17,13 +22,15 @@ def register(request):
 
     pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode()
 
-    User.objects.create(
+    new_user = User.objects.create(
         first_name = request.POST['first_name'],
         last_name = request.POST['last_name'],
         birthday = request.POST['birthday'],
         email_address = request.POST['email_address'],
         password = pw_hash
     )
+
+    new_user.save()
 
     messages.info(request, "Registration complete, please login.")
     return redirect("/")
