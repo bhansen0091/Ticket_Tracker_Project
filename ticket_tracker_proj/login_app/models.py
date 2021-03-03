@@ -1,55 +1,63 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 import re
 import datetime
 
+
 class UserManager(models.Manager):
     def basic_validator(self, post_data):
-        errors = {}
-
-        first_name_regex = re.compile(r"^[A-Z]{1}[a-zA-Z]+$")
-        if not first_name_regex.match(post_data['first_name']):
-            errors["first_name_invalid"] = "First name must begin with a capital and consist only of letters."
+        reg_errors = {}
+        if not post_data['first_name'].isalpha():
+            reg_errors['first_name'] = "First name needs to be letters only"
         if len(post_data['first_name']) < 2:
-            errors['first_name_short'] = "First name must be at leased 2 characters long."
-
-        last_name_regex = re.compile(r"^[a-zA-Z]+$")
-        if not last_name_regex.match(post_data['last_name']):
-            errors['last_name_invalid'] = "Last name must consist only of letters."
+            reg_errors['first_name'] = "First name should be at least 2 characters long"
+        
+        if not post_data['last_name'].isalpha():
+            reg_errors['last_name'] = "Last name needs to be letters only"
         if len(post_data['last_name']) < 2:
-            errors['last_name_short'] = "Last name must be at leased 2 characters long."
+            reg_errors['last_name'] = "Last name should be at least 2 characters long"
 
         email_regex = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
         if not email_regex.match(post_data['email_address']):
-            errors['email_address_invalid'] = "Invalid email address."
+            reg_errors['email_address'] = "Invalid Email address"
+        if User.objects.filter(email_address=post_data['email_address']):
+            reg_errors['email_address'] = "Email address already exists"
 
-        if post_data['password'] != post_data['confirm_password']:
-            errors['password_no_match'] = "Your passwords dont match."
-        if len(post_data['password']) < 8:
-            errors['password_short'] = "Passwords must be at leased 8 characters long."
-
-        try:
-            User.objects.get(email_address = post_data['email_address'])
-            errors['email_unique'] = "That email is already in use."
-        except:
-            pass
-
-        if len(post_data['birthday']) != 10:
-            errors['invalid_date'] = "Invalid birth date"
+        age_limit = datetime.timedelta(days=4745) # 13 years old
+        birthday = f"{post_data['birthday_year']}-{post_data['birthday_month']}-{post_data['birthday_day']}"
+        print(birthday)
+        print(len(birthday))
+        if len(birthday) != 0:
+            if len(birthday) < 7:
+                print('inside birthday length')
+                reg_errors['birthday'] = "Incorrect birthday entered"
+            else:
+                in_age = birthday
+                in_age = datetime.datetime.strptime(in_age, "%Y-%m-%d")
+                today = datetime.datetime.today()
+                curr_td = today - in_age
+                print('passed age verifi')
+                if curr_td < age_limit:
+                    reg_errors['birthday'] = "You are too young to register.  Must be 13 years old."
         else:
-            birthday_dtm = datetime.datetime.strptime(post_data['birthday'], "%Y-%m-%d")
+            reg_errors['birthday'] = "Cannot leave date blank"
 
-            if birthday_dtm > datetime.datetime.today():
-                errors['birthday_invalid'] = "The release date is not in the past."
+        pass_regex = re.compile(r'^[a-zA-Z0-9]{8,}')
+        if not re.fullmatch(pass_regex, post_data['confirm_password']):
+            reg_errors['confirm_password'] = "Password is not at least 8 characters long"
+        if post_data['confirm_password'] != post_data['password']:
+            reg_errors['confirm_password'] = "Passwords dont match!"
 
-        def calc_age(born):
-            today = datetime.datetime.today()
-            return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        return reg_errors
+    
+    def login_validator(self, post_data):
+        login_errors = {}
+        if len(post_data['email_address']) <= 0:
+            login_errors['email_address'] = "Email address cannot be blank"
+        if (len(post_data['password'])) <= 0:
+            login_errors['password'] = "Password cannot be blank"
+        return login_errors
 
-        user_age = calc_age(birthday_dtm)
-        if user_age < 13:
-            errors['age_restriction_not_met'] = "You must be at leased 13 years of age to register."
-        
-        return errors
 
 class User(models.Model):
     first_name = models.CharField(max_length=254)
@@ -60,4 +68,3 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
-
