@@ -101,6 +101,8 @@
     <main class="col-8 d-inline-block border p-2">
         <div class="col">
             <h2>{Project Name}</h2>
+            <div class="col border"><p>Add project discription here</p></div>
+            
             {% comment %}
             <!--todo: {% for project in projects %} -->
             {% endcomment %}
@@ -114,7 +116,10 @@
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
                         <div class="accordion-body">
                             <div class="progress">
-                                <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                {%comment%}
+                                <!--todo: add jQury to progress bar so whole page doesnt reload ever time -->
+                                {% endcomment %}
+                                <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
                             </div>
                             <h3>{Main task}</h3>
                             {% comment %}
@@ -132,9 +137,6 @@
                             {% endcomment %}
                             <div class="accordion " id="SUBaccordion">
                                 <div class="accordion-item">
-                                    {% comment %}
-                                    <!-- todo: Add sub-progress bar here -->
-                                    {% endcomment %}
                                     <h2 class="accordion-header" id="SUBheadingOne">
                                         <button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#SUBcollapseOne" aria-expanded="true" aria-controls="SUBcollapseOne">
                                             {Sub-Task}
@@ -143,7 +145,10 @@
                                     <div id="SUBcollapseOne" class="accordion-collapse collapse show" aria-labelledby="SUBheadingOne" data-bs-parent="#SUBaccordion">
                                         <div class="accordion-body">
                                             <div class="progress">
-                                                <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                {%comment%}
+                                                <!--todo: add jQury to progress bar so whole page doesnt reload ever time -->
+                                                {% endcomment %}
+                                                <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
                                             </div>
                                             <h4>{Sub-task}</h4>
                                             {% comment %}
