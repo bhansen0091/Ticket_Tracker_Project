@@ -19,13 +19,31 @@
 </head>
 
 <body>
+    <header class="row align-items-start border sticky-top mt-1 ps-3">
+        <h1 class="col-2">Tracker</h1>
+        <nav class="col-9 navbar navbar-expand-lg navbar-dark bg-dark rounded">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <h5 class="nav-link active">The Project Task Manager</h5>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+            </nav>
+    </header>
     <div class="wrapper container text-center col-12">
-        <header class="container-12 page_header my-4">
+        <div class="container-12 page_header my-4">
             <h1>Welcome</h1>
             {% for message in messages %}
             <p>{{message}}</p>
             {% endfor %}
-        </header>
+        </div>
         <main class="container main_content col-8">
             <div class="row justify-content-center">
                 <div class="row justify-content-around">
@@ -99,6 +117,9 @@
             </div>
         </main>
     </div>
+    <footer class="row align-items-start border fixed-bottom">
+        <div class="col navbar navbar-expand-lg navbar-dark bg-dark rounded"></div>
+    </footer>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
