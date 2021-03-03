@@ -17,9 +17,6 @@
 </head>
 <body>
 <header class="row align-items-start border sticky-top mt-1 ps-3">
-    {% comment %}
-    <!-- todo: Make Static -->
-    {% endcomment %}
     <h1 class="col-2">Tracker</h1>
     <nav class="col-9 navbar navbar-expand-lg navbar-dark bg-dark rounded">
         <div class="container-fluid">
@@ -37,28 +34,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contributors</a>
                     </li>
-                    {% comment %}
-                    <!--todo: {% if has projects %} -->
-                    {% endcomment %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Edit Project
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            {% comment %}
-                            <!--todo: {% for project in projects %} -->
-                            {% endcomment %}
-                            <li><a class="dropdown-item" href="#">{Project name}</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            {% comment %}
-                            <!--todo: {% endfor %} -->
-                            {% endcomment %}
+                            <li><a class="dropdown-item" href="#">Edit Task Goal</a></li>
+                            <li><a class="dropdown-item" href="#">Add New Sub Task</a></li>
+                            <li><a class="dropdown-item" href="#">Edit Existing Sub Task</a></li>
+                            <li><a class="dropdown-item" href="#">Delete Sub Task</a></li>
                         </ul>
                     </li>
-                    {% comment %}
-                    <!--todo: {% endif %} -->
-                    {% endcomment %}
                 </ul>
             </div>
         </div>
@@ -184,6 +170,9 @@
         </div>
     </main>
 </div>
+<footer class="row align-items-start border fixed-bottom">
+    <div class="col navbar navbar-expand-lg navbar-dark bg-dark rounded"></div>
+</footer>
 
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
