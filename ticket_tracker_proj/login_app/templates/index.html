@@ -2,86 +2,107 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login & Registration</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+        crossorigin="anonymous" />
+    <style>
+        .longer-rounded-corners {
+            border-radius: 15px 15px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="wrapper">
-        <header class="page_header">
-            <h1>Register or Login</h1>
+    <div class="wrapper container text-center col-12">
+        <header class="container-12 page_header my-4">
+            <h1>Welcome</h1>
             {% for message in messages %}
-                <p>{{message}}</p>
+            <p>{{message}}</p>
             {% endfor %}
         </header>
-        <main class="main_content">
-            <div class="registration_container main_content_split">
-                <h3>Register</h3>
-                <form action="/users/register" class="new_user_form input_forms" method="POST">
-                    {% csrf_token %}
-                    <div class="first_name_input form_divisions">
-                        <label for="first_name">First Name:</label>
-                        <input type="text" name="first_name"
-                            class="first_name_input">
+        <main class="container main_content col-8">
+            <div class="row justify-content-center">
+                <div class="row justify-content-around">
+                    <div class="col-5 border border-secondary longer-rounded-corners">
+                        <div class="container text-start">
+                            <div class="container text-center mt-2">
+                                <h3>Register</h3>
+                            </div>
+                            <form action="/users/register" method="POST">
+                                {% csrf_token %}
+                                <div class="row mb-2">
+                                    <div class="col form-group">
+                                        <input type="text" name="first_name" placeholder="First Name" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="form-group">
+                                        <input type="text" name="last_name" placeholder="Last Name" class="form-control" />
+                                    </div>
+                                </div>                            
+                                <div class="row mb-2">
+                                    <div class="form-group">
+                                        <input type="date" name="birthday" placeholder="Birthday" class="form-control" />
+                                    </div>
+                                </div>                            
+                                <div class="row mb-2">
+                                    <div class="form-group">
+                                        <input type="email" name="email_address" placeholder="Email Address" class="form-control" />
+                                    </div>
+                                </div>                            
+                                <div class="row mb-2">
+                                    <div class="form-group">
+                                        <input type="password" name="password" placeholder="Password" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="form-group">
+                                        <input type="password" name="confirm_password" placeholder="Confirm Password" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row mb-3 justify-content-center">
+                                    <div class="col text-center">
+                                        <button type="button" class="btn btn-sm btn-secondary">Register</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="last_name_input form_divisions">
-                        <label for="last_name">Last Name:</label>
-                        <input type="text" name="last_name"
-                            class="last_name_input">
+                    <div class="col-5 border border-secondary d-flex align-items-center longer-rounded-corners">
+                            <div class="container text-start">
+                                <div class="container text-center mt-2">
+                                    <h3>Login</h3>
+                                </div>
+                                <form action="/users/login" class="input_forms" method="POST">
+                                    {% csrf_token %}
+                                    <div class="row mb-2">
+                                        <input type="email" name="email_address" placeholder="Email Address" class="form-control" />
+                                    </div>
+                                    <div class="row mb-2">
+                                        <input type="password" name="password" placeholder="Password" class="form-control password_input" />
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col text-center">
+                                            <button type="button" class="btn btn-sm btn-secondary">Login</button>
+                                        </div>
+                                    </div>
+                                </form>
+                        </div>
                     </div>
-                    <div class="birthday_input form_divisions">
-                        <label for="birthday">Date of Birth:</label>
-                        <input type="date" name="birthday"
-                            class="birthday_input_field">
-                    </div>
-                    <div class="email_input form_divisions">
-                        <label for="email_address">Email:</label>
-                        <input type="email" name="email_address">
-                    </div>
-                    <div class="password_input form_divisions">
-                        <label for="password">Password:</label>
-                        <input type="password" name="password"
-                            class="password_input">
-                    </div>
-                    <div class="confirm_password_input form_divisions">
-                        <label for="confirm_password">Confirm Password:</label>
-                        <input type="password" name="confirm_password"
-                            class="confirm_password_input">
-                    </div>
-                    <div class="button_container form_divisions">
-                        <button type="submit">Register</button>
-                    </div>
-                </form>
-            </div>
-            <div class="login_container main_content_split">
-                <h3>Login</h3>
-                <form action="/users/login" class="login_user_form input_forms" method="POST">
-                    {% csrf_token %}
-                    <div class="login_email form_divisions">
-                        <label for="email_address">Email:</label>
-                        <input type="email" name="email_address">
-                    </div>
-                    <div class="login_pass form_divisions">
-                        <label for="password">Password:</label>
-                        <input type="password" name="password"
-                            class="password_input">
-                    </div>
-                    <div class="button_container form_divisions">
-                        <button type="submit">Login</button>
-                    </div>
-                </form>
-            </div>
-            <div class="error_container">
-
-
-
+                </div>
             </div>
         </main>
     </div>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
