@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import Field
+from django.forms.fields import CharField
 from login_app.models import User
 
 
