@@ -1,21 +1,31 @@
 from django.shortcuts import render, redirect
 from .models import Task, Subtask
 from login_app.models import User
+from .forms import CreateTask
 
 #----- Display Dashboard showing all tasks --------------------------
 
 def dashboard(request):
     user = User.objects.get(id=request.session['user_id'])
+    
     context = {
         "user": user,
-        "tasks": user.created_tasks.all()
+        "tasks": user.created_tasks.all(),
     }
+    try:
+        context['current_task'] = Task.objects.get(id=request.session['task_id'])
+        print(context['current_task'])
+    except:
+        pass
     return render(request, "dashboard.html", context)
 
 #------------------- Create New Task --------------------------------
 
 def new_task(request):
-    return render(request, "create_task.html")
+    context = {
+        "new_task_form": CreateTask()
+    }
+    return render(request, "create_task.html", context)
 
 def create_task(request):
     return redirect("/dashboard")
@@ -43,3 +53,9 @@ def edit_subtask(request):
 
 def update_subtask(request):
     return redirect("/dashboard")
+
+
+def render_task_id(request, task_id):
+    print("**" * 50)
+    request.session['task_id'] = task_id
+    return redirect('/dashboard')
