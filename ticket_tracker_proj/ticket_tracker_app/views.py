@@ -1,9 +1,16 @@
 from django.shortcuts import render, redirect
+from .models import Task, Subtask
+from login_app.models import User
 
 #----- Display Dashboard showing all tasks --------------------------
 
 def dashboard(request):
-    return render(request, "dashboard.html")
+    user = User.objects.get(id=request.session['user_id'])
+    context = {
+        "user": user,
+        "tasks": user.created_tasks.all()
+    }
+    return render(request, "dashboard.html", context)
 
 #------------------- Create New Task --------------------------------
 
