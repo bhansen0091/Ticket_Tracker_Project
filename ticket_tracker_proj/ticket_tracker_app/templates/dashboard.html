@@ -63,17 +63,13 @@
         <div class="position-sticky pt-3">
             <h5>My Projects</h5>
             <ul class="nav flex-column">
-                {% comment %}
-                <!--todo: {% for project in projects %} -->
-                {% endcomment %}
+                {% for task in user.created_tasks.all %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">
-                        {Project Name}
+                        {{task.name}}
                     </a>
                 </li>
-                {% comment %}
-                <!--todo: {% endfor %} -->
-                {% endcomment %}
+                {% endfor %}
             </ul>
         </div>
         <div class="position-sticky pt-3">
