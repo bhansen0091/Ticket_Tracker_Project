@@ -9,14 +9,10 @@
     {% endcomment %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <title>Dashboard</title>
-    <style>
-        *{
-            /* outline: 1px dashed red; */
-        }
-    </style>
+    
 </head>
 <body>
-<header class="row align-items-start border sticky-top mt-1 ps-3">
+<header class="row align-items-start border fixed-top ps-3 bg-light">
     <h1 class="col-2">Tracker</h1>
     <nav class="col-9 navbar navbar-expand-lg navbar-dark bg-dark rounded">
         <div class="container-fluid">
@@ -55,12 +51,12 @@
 <!-- ! End of header -->
 {% endcomment %}
 
-<div class="container-fluid p-2 mt-2">
-    <div id="sideBarMenu" class="col-2 d-inline-block bg-light sidebar collapse border align-top">
+<div class="container-fluid">
+    <div id="sideBarMenu" class="col-2 d-inline-block bg-light sidebar collapse border align-top position-fixed">
         {% comment %}
         <!--* Side links -->
         {% endcomment %}
-        <div class="position-sticky pt-3">
+        <div class="pt-3">
             <h5>My Projects</h5>
             <ul class="nav flex-column">
                 {% for task in user.created_tasks.all %}
@@ -94,7 +90,7 @@
     <!-- !End of Side Nav -->
     {% endcomment %}
 
-    <main class="col-8 d-inline-block border p-2">
+    <main class="col-8 d-inline-block border p-2 mt-5">
         <div class="col">
             <h2>{Project Name}</h2>
             {% comment %}
