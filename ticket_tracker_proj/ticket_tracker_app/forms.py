@@ -20,7 +20,32 @@ class CreateTask(forms.ModelForm):
                 }),
             "description": forms.Textarea(attrs = {
                 'class': 'form-control',
-                'placeholder': 'Task Description'
+                'placeholder': 'Task Description',
+                'style': 'resize:none'
+            })
+        }
+
+class EditTask(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['name', 'start_date', 'end_date', 'description']
+        widgets = {
+            "name": forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Task Name',
+                }),
+            "start_date": forms.DateInput(attrs = {
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            "end_date": forms.DateInput(attrs = {
+                'class': 'form-control',
+                'type': 'date'
+                }),
+            "description": forms.Textarea(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Task Description',
+                'style': 'resize:none'
             })
         }
 
@@ -43,7 +68,33 @@ class CreateSubTask(forms.ModelForm):
                 }),
             "description": forms.Textarea(attrs = {
                 'class': 'form-control',
-                'placeholder': 'Task Description'
+                'placeholder': 'Task Description',
+                'style': 'resize:none'
+            }),
+
+        }
+
+class EditSubTask(forms.ModelForm):
+    class Meta:
+        model = Subtask
+        fields = ['name', 'start_date', 'end_date', 'description']
+        widgets = {
+            "name": forms.TextInput(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Task Name',
+                }),
+            "start_date": forms.DateInput(attrs = {
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            "end_date": forms.DateInput(attrs = {
+                'class': 'form-control',
+                'type': 'date'
+                }),
+            "description": forms.Textarea(attrs = {
+                'class': 'form-control',
+                'placeholder': 'Task Description',
+                'style': 'resize:none'
             }),
 
         }
