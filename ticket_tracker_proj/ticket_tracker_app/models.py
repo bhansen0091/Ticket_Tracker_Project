@@ -30,6 +30,15 @@ class Subtask(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # need to add validations form forms view
 
+# all_tasks = Task.objects.all()
+# for this_task in all_tasks:
+#     if len(this_task.contributors.all()) > 0:
+#         print(f"Task: {this_task.name} {this_task.id}")
+#     else:
+#         print(f"Contributors:{this_task.name} {this_task.id}")
+
+# {% if this_task.contributors.all|length > 0 %}
+# {% endif %}
 
 # class Comment(models.Model):
     # text = models.CharFiel(max_length=510)
