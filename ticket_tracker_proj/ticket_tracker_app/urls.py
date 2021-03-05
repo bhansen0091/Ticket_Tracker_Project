@@ -19,6 +19,7 @@ urlpatterns = [
 
     path('open_tasks', views.open_tasks),
     path('<int:task_id>/add_contributor', views.add_contributor),
+    path('<int:task_id>/remove_contributor', views.remove_contributor),
     
 
 ]
