@@ -138,7 +138,9 @@ def view_contributors(request):
             print(f"first_name & id {contrib.first_name} {contrib.id} task_name & id {this_task.name} {this_task.id}")
     context = {
         "contributors": user.con_tasks.all(),
-        "task": user.created_tasks.all()
+        "tasks": user.created_tasks.all(),
+        "all_my_tasks": all_my_tasks,
+        "user": user
     }
     return render(request, "contributors.html", context)
 
