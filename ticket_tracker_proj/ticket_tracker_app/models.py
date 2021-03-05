@@ -6,16 +6,6 @@ from login_app.models import User
 
 
 
-class Subtask(models.Model):
-    name = models.CharField(max_length=510)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    description = models.TextField()
-    sub_created_by = models.ForeignKey(User, related_name="created_sub_tasks", on_delete=CASCADE)
-    sub_contributors = models.ManyToManyField(User, related_name="sub_tasks")
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    # need to add validations form forms view
 
 class Task(models.Model):
     name = models.CharField(max_length=510)
@@ -23,12 +13,28 @@ class Task(models.Model):
     end_date = models.DateTimeField()
     description = models.TextField()
     created_by = models.ForeignKey(User, related_name="created_tasks", on_delete=CASCADE)
-    contributors = models.ManyToManyField(User, related_name="tasks")
-    subtasks = models.ForeignKey(Subtask, null=True, on_delete=CASCADE)
+    contributors = models.ManyToManyField(User, related_name="con_tasks") # THROUGH CON_APPROVED (Approved =>True Approval_Needed => False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    # need to add validations form forms view
+
+class Subtask(models.Model):
+    name = models.CharField(max_length=510)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    description = models.TextField()
+    sub_created_by = models.ForeignKey(User, related_name="created_sub_tasks", on_delete=CASCADE)
+    sub_contributors = models.ManyToManyField(User, related_name="con_sub_tasks") # THROUGH SUB_CON_APPROVED (Approved => True  Approval_Needed => False)
+    parent_task = models.ForeignKey(Task, null=True, related_name="subtasks", on_delete=CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     # need to add validations form forms view
 
 
-
-
+# class Comment(models.Model):
+    # text = models.CharFiel(max_length=510)
+    # by = models.ForeignKey(User, related_name="created_comments")
+    # attached_task = models.ForeignKey(Task, related_name="task_comments", null=True)
+    # attached_subtask = models.ForeignKey(Subtask, related_name="sub_comments", null=True)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
