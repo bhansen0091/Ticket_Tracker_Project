@@ -132,6 +132,9 @@
                                             {% for contrib in current_task.contributors.all %}
                                             <li>{{contrib.first_name}}</li>
                                             {% endfor %}
+                                            {% if remove_self_contrib %} 
+                                                <li><a href="{{current_task.id}}/remove_contributor">Stop Contributing</a></li>
+                                            {% endif %}
                                         </ul>
                                     </div>
                                     <hr>
@@ -202,17 +205,16 @@
                                             <a href="/tasks/{{current_task.id}}/edit" class="btn btn-sm btn-secondary">Edit Task</a>
                                             {% endif %}
                                         </div>
+                                    </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>
-                </main>
-            </div> 
+                    </main>
+                </div> 
+        </div>
     </div>
-</div>
 
-    </div>
     <footer class="row align-items-start border fixed-bottom">
         <div class="col navbar navbar-expand-lg navbar-dark bg-dark rounded m-0">
         </div>

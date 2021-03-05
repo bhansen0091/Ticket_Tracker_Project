@@ -17,8 +17,12 @@ def dashboard(request):
         context['current_task'] = cur_task
         context['sub_tasks'] = cur_task.subtasks.all()
         context['contributions'] = user.con_tasks.all()
-        if cur_task.filter(contributors=user) > 0:
+
+        if user in cur_task.contributors.all():
             context['remove_self_contrib'] = True
+        else:
+            context['add_self_contrib'] = True
+
         # print(context['current_task'])
     except:
         pass
@@ -128,17 +132,26 @@ def delete_subtask(request, task_id, subtask_id):
 
 def view_contributors(request):
     user = User.objects.get(id=request.session['user_id'])
+    all_my_tasks = Task.objects.filter(created_by=user)
+    for this_task in all_my_tasks:
+        for contrib in this_task.contributors.all():
+            print(f"first_name & id {contrib.first_name} {contrib.id} task_name & id {this_task.name} {this_task.id}")
     context = {
         "contributors": user.con_tasks.all(),
         "task": user.created_tasks.all()
     }
-    
     return render(request, "contributors.html", context)
 
 def add_contributor(request, task_id):
     this_task = Task.objects.get(id = task_id)
     user = User.objects.get(id = request.session['user_id'])
     this_task.contributors.add(user)
+    return redirect("/dashboard")
+
+def remove_contributor(request, task_id):
+    this_task = Task.objects.get(id=task_id)
+    user = User.objects.get(id = request.session['user_id'])
+    this_task.contributors.remove(user)
     return redirect("/dashboard")
 
 #------------------- Open Projects -----------------------------
